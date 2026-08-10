@@ -45,8 +45,8 @@ jobs:
           push: true
           platforms: linux/amd64
           tags: |
-            ghcr.io/haowang2025/systemic-risk-mcp:latest
-            ghcr.io/haowang2025/systemic-risk-mcp:${{ github.sha }}
+            ghcr.io/u3588064/systemic-risk-mcp:latest
+            ghcr.io/u3588064/systemic-risk-mcp:${{ github.sha }}
           labels: |
             org.opencontainers.image.source=https://github.com/u2017310234/systemic-risk
             org.opencontainers.image.description=Systemic Risk MCP server for Azure Container Apps

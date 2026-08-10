@@ -1,0 +1,76 @@
+name: Build systemic-risk MCP image
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - Dockerfile
+      - .dockerignore
+      - .github/workflows/build-mcp-image.yml
+  workflow_dispatch:
+  schedule:
+    - cron: "17 3 * * 1"
+
+permissions:
+  contents: read
+  packages: write
+
+concurrency:
+  group: systemic-risk-mcp-image
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out deployment repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          platforms: linux/amd64
+          tags: |
+            ghcr.io/haowang2025/systemic-risk-mcp:latest
+            ghcr.io/haowang2025/systemic-risk-mcp:${{ github.sha }}
+          labels: |
+            org.opencontainers.image.source=https://github.com/u2017310234/systemic-risk
+            org.opencontainers.image.description=Systemic Risk MCP server for Azure Container Apps
+
+      - name: Smoke test MCP health endpoint
+        shell: bash
+        run: |
+          IMAGE="ghcr.io/haowang2025/systemic-risk-mcp:${GITHUB_SHA}"
+          docker pull "$IMAGE"
+          docker run -d --name systemic-risk-mcp-test -p 8000:8000 "$IMAGE"
+
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent --show-error http://127.0.0.1:8000/health; then
+              echo
+              echo "MCP health check passed."
+              exit 0
+            fi
+            sleep 2
+          done
+
+          echo "MCP health check failed. Container logs:"
+          docker logs systemic-risk-mcp-test
+          exit 1
+
+      - name: Clean up smoke-test container
+        if: always()
+        run: docker rm -f systemic-risk-mcp-test >/dev/null 2>&1 || true

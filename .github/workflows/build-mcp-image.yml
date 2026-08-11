@@ -54,7 +54,7 @@ jobs:
       - name: Smoke test MCP health endpoint
         shell: bash
         run: |
-          IMAGE="ghcr.io/haowang2025/systemic-risk-mcp:${GITHUB_SHA}"
+          IMAGE="ghcr.io/u3588064/systemic-risk-mcp:${GITHUB_SHA}"
           docker pull "$IMAGE"
           docker run -d --name systemic-risk-mcp-test -p 8000:8000 "$IMAGE"
 

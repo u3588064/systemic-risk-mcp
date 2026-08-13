@@ -17,7 +17,7 @@ GitHub Actions publishes:
 ghcr.io/haowang2025/systemic-risk-mcp:latest
 ```
 
-A commit-SHA tag is also published for each build.
+A commit- SHA tag is also published for each build.
 
 ## How the image works
 

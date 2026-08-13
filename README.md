@@ -2,7 +2,7 @@
 
 This repository builds a deployable container image for the MCP server from:
 
-- Upstream source: `u2017310234/systemic-risk`
+- Upstream source: `systemic-risk`
 - MCP transport: HTTP/SSE
 - Container port: `8000`
 - MCP endpoint after deployment: `/sse`

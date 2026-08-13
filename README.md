@@ -44,7 +44,7 @@ Because the local data directory is empty, the MCP server falls back to the curr
 The workflow builds and pushes the image:
 
 - on changes to this deployment repository's build files;
-- manually with `workflow_dispatch`;
+- manually with `workflow_dispatch`
 - once per week to pick up upstream code/dependency changes.
 
 ## Azure Container Apps settings

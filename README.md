@@ -82,3 +82,4 @@ https://<container-app-domain>/sse
 ## GHCR visibility
 
 This repository is private, so the first GHCR package may also be private. For the simplest Azure deployment without registry credentials, change the `systemic-risk-mcp` package visibility to **Public** in GitHub Packages after the first successful workflow run. Alternatively, keep it private and configure GHCR credentials in Azure Container Apps.
+

@@ -14,7 +14,7 @@ This repository builds a deployable container image for the MCP server from:
 GitHub Actions publishes:
 
 ```text
-ghcr.io/haowang2025/systemic-risk-mcp:latest
+ghcr.io/u3588064/systemic-risk-mcp:latest
 ```
 
 A commit-SHA tag is also published for each build.
@@ -52,7 +52,7 @@ The workflow builds and pushes the image:
 Recommended runtime settings:
 
 ```text
-Image: ghcr.io/haowang2025/systemic-risk-mcp:latest
+Image: ghcr.io/u3588064/systemic-risk-mcp:latest
 Ingress: External
 Target port: 8000
 CPU: 0.25

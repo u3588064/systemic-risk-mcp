@@ -14,6 +14,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY --from=source /src/src ./src
 COPY --from=source /src/mcp ./mcp
+COPY --from=source /src/risk_mcp ./risk_mcp
 
 ENV MCP_HOST=0.0.0.0 \
     MCP_PORT=8000 \
@@ -24,4 +25,4 @@ ENV MCP_HOST=0.0.0.0 \
 
 EXPOSE 8000
 
-CMD ["python", "mcp/server.py"]
+CMD ["uvicorn", "risk_mcp.server:app", "--host", "0.0.0.0", "--port", "8000"]
